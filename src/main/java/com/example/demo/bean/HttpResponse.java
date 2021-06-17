@@ -14,5 +14,4 @@ public class HttpResponse {
     private HttpStatus httpStatus;
     private String reason; // Http Reason (Libelle d Http responce)
     private String message; // Developper Msg
-
 }
