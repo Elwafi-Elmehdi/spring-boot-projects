@@ -15,4 +15,5 @@ public class SecurityConsts {
     public static final String[] PUBLIC_URLS = {"/user/login","/user/register","/user/resetpassword/**","/user/image/**"};
     public static final String COMPANY_LLC = "Company LLC";
     public static final String COMPANY_LLC_ADMINISTRATON = "Company LLC administration";
+    public static final String timeZone = "Morocco/Casablanca";
 }
