@@ -1,5 +1,6 @@
 package com.example.demo.bean;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,8 +10,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 public class UserPrinciple implements UserDetails {
-    @Autowired
     private User user;
 
     @Override
