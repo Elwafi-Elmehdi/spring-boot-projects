@@ -10,6 +10,8 @@ import com.example.demo.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +29,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private UserDao userDao;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -62,6 +66,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         user.setEmail(email);
         user.setProfileImgURL(getDefaultImage());
         userDao.save(user);
+        LOGGER.info(username +" "+password);
         return user;
     }
 
@@ -75,35 +80,34 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public User findUserByEmail(String email) {
-        return null;
+        return userDao.findByEmail(email);
     }
 
     @Override
     public User findUserByUsername(String username) {
-        return null;
+        return userDao.findByUsername(username);
     }
 
     private User validateEmailAndUsername(String currentUsername,String email,String username) throws Exception {
+        User userByUsername = findUserByUsername(username);
+        User userByEmail = findUserByEmail(email);
+
         if(StringUtils.isNotBlank(currentUsername)){
             User currentUser = findUserByUsername(currentUsername);
             if(currentUser == null){
                 throw new UsernameNotFoundException("No user found with username"+ currentUsername);
             }
-            User userByUsername = findUserByUsername(username);
             if(userByUsername!= null && !currentUser.getId().equals(userByUsername.getId())){
                 throw new UsernameExistsException("Username already exists");
             }
-            User userByEmail = findUserByEmail(email);
             if(userByEmail != null && currentUser.getId().equals(userByEmail.getId())){
                 throw new EmailExistsException("Email already exists");
             }
             return currentUser;
         }else {
-            User userByUsername = findUserByUsername(username);
             if(userByUsername != null){
                 throw new UsernameExistsException("Username already exists");
             }
-            User userByEmail = findUserByEmail(email);
             if(userByEmail != null){
                 throw new EmailExistsException("Email already exists");
              }
