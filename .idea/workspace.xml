@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ef9faa-e736-475b-b385-d76f8860f0b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/bean/consts/UserAuthorities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/bean/enumeration/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/bean/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/impls/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/impls/UserServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/provided/UserProvided.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/provided/UserProvided.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +85,7 @@
       <workItem from="1624192956533" duration="2946000" />
       <workItem from="1624198729232" duration="6021000" />
       <workItem from="1624312557688" duration="7921000" />
-      <workItem from="1624361319019" duration="6578000" />
+      <workItem from="1624361319019" duration="7157000" />
     </task>
     <servers />
   </component>
