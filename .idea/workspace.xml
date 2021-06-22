@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ef9faa-e736-475b-b385-d76f8860f0b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/exception/domain/ExceptionHandling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/exception/domain/ExceptionHandling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/exception/domain/ExceptionHandling.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/provided/UserProvided.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/provided/UserProvided.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/security/SecurityConsts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/security/SecurityConsts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +84,7 @@
       <workItem from="1624150149344" duration="8000" />
       <workItem from="1624192956533" duration="2946000" />
       <workItem from="1624198729232" duration="6021000" />
-      <workItem from="1624312557688" duration="5655000" />
+      <workItem from="1624312557688" duration="7834000" />
     </task>
     <servers />
   </component>

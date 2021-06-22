@@ -4,6 +4,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.demo.bean.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,13 @@ import org.springframework.security.authentication.LockedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Locale;
 import java.util.Objects;
 
 @RestControllerAdvice
-public class ExceptionHandling {
+public class ExceptionHandling  {
     private  final Logger LOGGER = LoggerFactory.getLogger(getClass());
     public static final String ACCOUNT_LOCKED = "YOUR ACCOUNT HAS BEEN LOCKED";
     public static final String METHOD_IS_NOT_ALLOWED = "REQUEST METHOD IS NOT SUPPORTED FOR THIS ENDPINT, PLEASE SEND A '%s' REQUEST";
@@ -36,7 +38,7 @@ public class ExceptionHandling {
     }
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<HttpResponse> badCredentialsException(){
-        return createHttpResponse(HttpStatus.BAD_REQUEST,INCORRECT_CREDENTIALS)
+        return createHttpResponse(HttpStatus.BAD_REQUEST,INCORRECT_CREDENTIALS);
     }
     @ExceptionHandler(AccessDeniedException.class)
     public  ResponseEntity<HttpResponse> accessDeniedException(){
@@ -77,6 +79,12 @@ public class ExceptionHandling {
         HttpMethod supportedMethod = HttpMethod.resolve(supportedMethods[0]);
         return createHttpResponse(HttpStatus.METHOD_NOT_ALLOWED,String.format(METHOD_IS_NOT_ALLOWED,supportedMethod));
     }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<HttpResponse> pageNotFoundException(NoHandlerFoundException exception){
+        return createHttpResponse(HttpStatus.BAD_REQUEST,"PAGE NOT FOUND");
+    }
+
 
     private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus,String message){
         HttpResponse httpResponse = new HttpResponse(
