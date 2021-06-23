@@ -53,6 +53,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         String password = generatePassword();
         String encodedPassword = encodePassword(password);
         String userId = genrateUserId();
+        user.setUsername(username);
         user.setNotLocked(true);
         user.setActive(true);
         user.setJoinDate(new Date());
