@@ -12,7 +12,7 @@ public class SecurityConsts {
     public static final String FORBIDDEN_MESSAGE = "You need to log to access this page";
     public static final String ACCESS_DENIED_MESSAGE = "You do not have permission to acess this page";
     public static final String OPTION_HTTP_METHOD = "OPTION";
-    public static final String[] PUBLIC_URLS = {"/user/login/**","/user/register/**","/user/resetpassword/**","/user/image/**"};
+    public static final String[] PUBLIC_URLS = {"/swagger-ui**","/user/login/**","/user/register/**","/user/resetpassword/**","/user/image/**"};
     public static final String COMPANY_LLC = "Company LLC";
     public static final String COMPANY_LLC_ADMINISTRATON = "Company LLC administration";
     public static final String timeZone = "Morocco/Casablanca";

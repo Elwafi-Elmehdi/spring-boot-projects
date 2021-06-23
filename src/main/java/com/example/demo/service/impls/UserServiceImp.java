@@ -8,7 +8,6 @@ import com.example.demo.exception.domain.EmailExistsException;
 import com.example.demo.exception.domain.UsernameExistsException;
 import com.example.demo.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,8 +47,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public User register(String firstname, String lastname, String username, String email) throws Exception {
-        validateEmailAndUsername(StringUtils.EMPTY,username,email);
+    public User register(String firstname, String lastname, String username, String email) throws EmailExistsException, UsernameExistsException {
+        validateEmailAndUsername(StringUtils.EMPTY,email,username);
         User user = new User();
         String password = generatePassword();
         String encodedPassword = encodePassword(password);
@@ -88,7 +87,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userDao.findByUsername(username);
     }
 
-    private User validateEmailAndUsername(String currentUsername,String email,String username) throws Exception {
+    private User validateEmailAndUsername(String currentUsername, String email, String username) throws UsernameExistsException, EmailExistsException {
         User userByUsername = findUserByUsername(username);
         User userByEmail = findUserByEmail(email);
 
