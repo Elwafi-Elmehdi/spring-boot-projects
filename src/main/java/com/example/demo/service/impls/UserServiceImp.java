@@ -7,11 +7,18 @@ import com.example.demo.dao.UserDao;
 import com.example.demo.exception.domain.EmailExistsException;
 import com.example.demo.exception.domain.UsernameExistsException;
 import com.example.demo.service.UserService;
+import com.example.demo.service.security.SecurityConsts;
+import com.example.demo.service.security.utils.JWTTokenProvider;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +33,10 @@ import java.util.List;
 public class UserServiceImp implements UserService, UserDetailsService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JWTTokenProvider jwtTokenProvider;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -86,6 +97,26 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public User findUserByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public ResponseEntity<User> login(String username, String password) {
+        authenticate(username,password);
+        User loginUser = findUserByUsername(username);
+        UserPrinciple userPrinciple = new UserPrinciple(loginUser);
+        HttpHeaders tokenHeader = getJwtToken(userPrinciple);
+        return new ResponseEntity<>(loginUser,tokenHeader, HttpStatus.OK);
+    }
+
+    private void authenticate(String username, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
+    }
+
+    private HttpHeaders getJwtToken(UserPrinciple userPrinciple) {
+        String token= jwtTokenProvider.generateJWTToken(userPrinciple);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(SecurityConsts.JWT_TOKEN_HEADER,token);
+        return httpHeaders;
     }
 
     private User validateEmailAndUsername(String currentUsername, String email, String username) throws UsernameExistsException, EmailExistsException {

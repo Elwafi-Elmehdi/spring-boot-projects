@@ -6,6 +6,7 @@ import com.example.demo.exception.domain.ExceptionHandling;
 import com.example.demo.exception.domain.UsernameExistsException;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserProvided extends ExceptionHandling {
     @Autowired
     private UserService userService;
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user){
+        return userService.login(user.getUsername(),user.getPassword());
+    }
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) throws EmailExistsException, UsernameExistsException {
         return userService.register(
