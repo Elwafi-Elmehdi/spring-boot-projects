@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d8ef9faa-e736-475b-b385-d76f8860f0b6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/DemoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/DemoApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/consts/FileConsts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/consts/FileConsts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/provided/UserProvided.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/provided/UserProvided.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/impls/UserServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/impls/UserServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/security/SecurityConsts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/security/SecurityConsts.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,17 +55,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="spring-jwt" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
@@ -98,7 +89,8 @@
       <workItem from="1625260601930" duration="409000" />
       <workItem from="1625265290909" duration="6360000" />
       <workItem from="1625332969310" duration="5449000" />
-      <workItem from="1625346011292" duration="517000" />
+      <workItem from="1625346011292" duration="2996000" />
+      <workItem from="1625351817005" duration="3040000" />
     </task>
     <servers />
   </component>

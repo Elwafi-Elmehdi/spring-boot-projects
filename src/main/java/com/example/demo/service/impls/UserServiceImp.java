@@ -89,10 +89,22 @@ public class UserServiceImp implements UserService, UserDetailsService {
         LOGGER.info(username +" "+password);
         return user;
     }
+    @Override
+    public User addNewUser(User user, MultipartFile img) throws UsernameExistsException, EmailExistsException {
 
+        validateEmailAndUsername(StringUtils.EMPTY,user.getEmail(),user.getUsername());
 
+        String password = RandomStringUtils.randomAlphanumeric(10);
+        user.setPassword(encodePassword(password));
+        user.setUserId(RandomStringUtils.randomNumeric(8));
+        user.setJoinDate(new Date());
+        user.setLastLoginDate(null);
+        user.setLastLoginDateDisplay(null);
 
-
+        userDao.save(user);
+        LOGGER.info(user.getUsername() +" "+password);
+        return user;
+    }
     @Override
     public List<User> getUsers() {
         return userDao.findAll();
@@ -113,10 +125,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         userDao.deleteById(id);
     }
 
-    @Override
-    public User addNewUser(User user, MultipartFile img) {
-        return null;
-    }
+
 
     @Override
     public User updateUser(String username, User user, MultipartFile img) {

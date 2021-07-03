@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserProvided extends ExceptionHandling {
@@ -26,5 +28,9 @@ public class UserProvided extends ExceptionHandling {
                 user.getUsername(),
                 user.getEmail()
         );
+    }
+    @GetMapping("/all")
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 }

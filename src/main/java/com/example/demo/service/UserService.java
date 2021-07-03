@@ -15,7 +15,7 @@ public interface UserService {
     public User findUserByEmail(String email);
     public User findUserByUsername(String username);
     public void deleteById(Long id);
-    public User addNewUser(User user, MultipartFile img);
+    public User addNewUser(User user, MultipartFile img) throws UsernameExistsException, EmailExistsException;
     public User updateUser(String username,User user, MultipartFile img);
     public void resetPassword(String email);
 
