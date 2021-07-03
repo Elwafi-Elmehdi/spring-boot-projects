@@ -26,6 +26,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Date;
@@ -105,6 +106,26 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public User findUserByUsername(String username) {
         return userDao.findByUsername(username);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userDao.deleteById(id);
+    }
+
+    @Override
+    public User addNewUser(User user, MultipartFile img) {
+        return null;
+    }
+
+    @Override
+    public User updateUser(String username, User user, MultipartFile img) {
+        return null;
+    }
+
+    @Override
+    public void resetPassword(String email) {
+
     }
 
     @Override
