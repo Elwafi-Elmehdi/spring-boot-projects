@@ -6,6 +6,7 @@ import com.example.demo.bean.enumeration.Role;
 import com.example.demo.dao.UserDao;
 import com.example.demo.exception.domain.EmailExistsException;
 import com.example.demo.exception.domain.UsernameExistsException;
+import com.example.demo.service.LoginAttemptService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.security.SecurityConsts;
 import com.example.demo.service.security.utils.JWTTokenProvider;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
@@ -39,6 +41,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private JWTTokenProvider jwtTokenProvider;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private LoginAttemptService loginAttemptService;
 
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
 
@@ -48,6 +52,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         if(user == null )
             throw new UsernameNotFoundException("Cannot find User with "+ s);
         else{
+            validateLoginAttempts(user);
             user.setLastLoginDateDisplay(user.getLastLoginDate());
             user.setLastLoginDate(new Date());
             userDao.save(user);
@@ -55,6 +60,19 @@ public class UserServiceImp implements UserService, UserDetailsService {
             return userPrinciple;
         }
 
+    }
+
+    private void validateLoginAttempts(User user) throws ExecutionException {
+        if(user.isNotLocked()){
+            if(loginAttemptService.hasExceededMaxAttempts(user.getUsername())){
+                user.setNotLocked(false);
+
+            }else{
+                user.setNotLocked(true);
+            }
+        }else{
+            loginAttemptService.removeUserFromLoginAttemptCache(user.getUsername());
+        }
     }
 
     @Override
