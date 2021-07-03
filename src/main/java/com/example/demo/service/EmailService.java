@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.bean.User;
 import com.example.demo.consts.EmailConsts;
 import com.example.demo.consts.EmailConsts.*;
+import com.sun.mail.smtp.SMTPTransport;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
@@ -18,6 +19,14 @@ import static com.example.demo.consts.EmailConsts.*;
 
 @Service
 public class EmailService {
+
+    public void sendEMail(User user,String password) throws MessagingException {
+        Message message = createEmail(user,password);
+        SMTPTransport smtpTransport = (SMTPTransport) getEmailSession().getTransport(SMTP_MAIL_TRANSFER_PROTOCOL);
+        smtpTransport.connect(GMAIL_SMTP_SERVER,USERNAME,PASSWORD);
+        smtpTransport.sendMessage(message,message.getAllRecipients());
+        smtpTransport.close();
+    }
 
 
     private Message createEmail(User user,String password) throws MessagingException {

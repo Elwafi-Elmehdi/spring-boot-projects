@@ -1,7 +1,7 @@
 package com.example.demo.consts;
 
 public class EmailConsts {
-    public static final String SIMPLE_MAIL_TRANSFER_PROTOCOL = "smpts";
+    public static final String SMTP_MAIL_TRANSFER_PROTOCOL = "smpts";
     public static final String USERNAME = "email";
     public static final String PASSWORD = "password";
     public static final String FROM_EMAIL = "your.company@domain.com";
