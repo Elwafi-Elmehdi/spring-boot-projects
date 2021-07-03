@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8ef9faa-e736-475b-b385-d76f8860f0b6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/spring-jwt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/spring-jwt.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/consts/EmailConsts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/consts/EmailConsts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/EmailService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +98,7 @@
       <workItem from="1624628524427" duration="31000" />
       <workItem from="1625260601930" duration="409000" />
       <workItem from="1625265290909" duration="6360000" />
-      <workItem from="1625332969310" duration="4077000" />
+      <workItem from="1625332969310" duration="4979000" />
     </task>
     <servers />
   </component>
