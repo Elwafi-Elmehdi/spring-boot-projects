@@ -10,6 +10,7 @@ import com.example.demo.service.LoginAttemptService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.security.SecurityConsts;
 import com.example.demo.service.security.utils.JWTTokenProvider;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -62,18 +63,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     }
 
-    private void validateLoginAttempts(User user) throws ExecutionException {
-        if(user.isNotLocked()){
-            if(loginAttemptService.hasExceededMaxAttempts(user.getUsername())){
-                user.setNotLocked(false);
 
-            }else{
-                user.setNotLocked(true);
-            }
-        }else{
-            loginAttemptService.removeUserFromLoginAttemptCache(user.getUsername());
-        }
-    }
 
     @Override
     public User register(String firstname, String lastname, String username, String email) throws EmailExistsException, UsernameExistsException {
@@ -176,5 +166,17 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
     private String getDefaultImage() {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/image/default").toUriString();
+    }
+    private void validateLoginAttempts(User user)  {
+        if(user.isNotLocked()){
+            if(loginAttemptService.hasExceededMaxAttempts(user.getUsername())){
+                user.setNotLocked(false);
+
+            }else{
+                user.setNotLocked(true);
+            }
+        }else{
+            loginAttemptService.removeUserFromLoginAttemptCache(user.getUsername());
+        }
     }
 }

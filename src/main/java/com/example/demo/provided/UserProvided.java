@@ -27,5 +27,4 @@ public class UserProvided extends ExceptionHandling {
                 user.getEmail()
         );
     }
-
 }
