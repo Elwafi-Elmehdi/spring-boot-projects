@@ -171,7 +171,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
         if(user.isNotLocked()){
             if(loginAttemptService.hasExceededMaxAttempts(user.getUsername())){
                 user.setNotLocked(false);
-
+                loginAttemptService.removeUserFromLoginAttemptCache(user.getUsername());
             }else{
                 user.setNotLocked(true);
             }

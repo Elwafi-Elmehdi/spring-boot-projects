@@ -1,6 +1,6 @@
 package com.example.demo.bean.enumeration;
 
-import com.example.demo.bean.consts.UserAuthorities;
+import com.example.demo.consts.UserAuthorities;
 
 public enum Role {
 

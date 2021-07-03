@@ -22,7 +22,7 @@ public class LoginAttemptService {
                    .build(new CacheLoader<String, Integer>() {
                        @Override
                        public Integer load(String s) throws Exception {
-                           return null;
+                           return 0;
                        }
                    });
     }

@@ -1,4 +1,4 @@
-package com.example.demo.bean.consts;
+package com.example.demo.consts;
 
 public class UserAuthorities {
     public static final String[] USER_AUTHORITIES = {"user:read"};
