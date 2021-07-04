@@ -3,6 +3,7 @@ package com.example.demo.service.impls;
 import com.example.demo.bean.User;
 import com.example.demo.bean.UserPrinciple;
 import com.example.demo.bean.enumeration.Role;
+import static com.example.demo.consts.FileConsts.*;
 import com.example.demo.dao.UserDao;
 import com.example.demo.exception.domain.EmailExistsException;
 import com.example.demo.exception.domain.UsernameExistsException;
@@ -10,6 +11,7 @@ import com.example.demo.service.LoginAttemptService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.security.SecurityConsts;
 import com.example.demo.service.security.utils.JWTTokenProvider;
+import javassist.bytecode.MethodParametersAttribute;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,8 +31,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -90,21 +98,27 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return user;
     }
     @Override
-    public User addNewUser(User user, MultipartFile img) throws UsernameExistsException, EmailExistsException {
+    public User addNewUser(User user, MultipartFile img) throws UsernameExistsException, EmailExistsException, IOException {
 
         validateEmailAndUsername(StringUtils.EMPTY,user.getEmail(),user.getUsername());
 
-        String password = RandomStringUtils.randomAlphanumeric(10);
+        String password = generatePassword();
         user.setPassword(encodePassword(password));
-        user.setUserId(RandomStringUtils.randomNumeric(8));
+        user.setUserId(genrateUserId());
         user.setJoinDate(new Date());
         user.setLastLoginDate(null);
         user.setLastLoginDateDisplay(null);
-
+        user.setRole(getRoleEnumName(user.getRole()).name());
+        user.setAuthorities(getRoleEnumName(user.getRole()).getAuthorities());
+        user.setProfileImgURL(getDefaultImage());
         userDao.save(user);
+        saveProfileImage(user,img);
         LOGGER.info(user.getUsername() +" "+password);
         return user;
     }
+
+
+
     @Override
     public List<User> getUsers() {
         return userDao.findAll();
@@ -125,10 +139,20 @@ public class UserServiceImp implements UserService, UserDetailsService {
         userDao.deleteById(id);
     }
 
-
-
     @Override
-    public User updateUser(String username, User user, MultipartFile img) {
+    public User updateUser(String username, User user, MultipartFile img) throws UsernameExistsException, EmailExistsException, IOException {
+        User curentUser = validateEmailAndUsername(username,user.getEmail(),user.getUsername());
+
+        curentUser.setUsername(username);
+        curentUser.setNotLocked(true);
+        curentUser.setActive(true);
+        curentUser.setRole(getRoleEnumName(user.getRole()).name());
+        curentUser.setAuthorities(getRoleEnumName(user.getRole()).getAuthorities());
+        curentUser.setFirstName(user.getFirstName());
+        curentUser.setLastName(user.getLastName());
+        curentUser.setEmail(user.getEmail());
+//        curentUser.setProfileImgURL();
+        saveProfileImage(user,img);
         return null;
     }
 
@@ -208,5 +232,29 @@ public class UserServiceImp implements UserService, UserDetailsService {
         }else{
             loginAttemptService.removeUserFromLoginAttemptCache(user.getUsername());
         }
+    }
+
+    private Role getRoleEnumName(String role) {
+        return Role.valueOf(role.toUpperCase());
+    }
+
+    private void saveProfileImage(User user, MultipartFile img) throws IOException {
+        if(img != null){
+            Path userPath = Paths.get(USER_FOLDER+user.getUsername()).toAbsolutePath().normalize();
+            if(!Files.exists(userPath)){
+                Files.createDirectories(userPath);
+                LOGGER.info(DIRECTORY_CREATED + userPath);
+            }
+            Files.deleteIfExists(Paths.get(USER_FOLDER+user.getUsername()+DOT+JPG_EXTENSION));
+            Files.copy(img.getInputStream(),userPath.resolve(user.getUsername()+DOT+JPG_EXTENSION), StandardCopyOption.REPLACE_EXISTING);
+            user.setProfileImgURL(setProfileImageUrl(user.getUsername()));
+            userDao.save(user);
+            LOGGER.info(FILE_SAVED_IN_FILE_SYSTEM + img.getOriginalFilename());
+        }
+    }
+
+    private String setProfileImageUrl(String username) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/image/"+username+SLASH+username+DOT+JPG_EXTENSION).toUriString();
+
     }
 }

@@ -6,6 +6,7 @@ import com.example.demo.exception.domain.UsernameExistsException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
@@ -15,8 +16,8 @@ public interface UserService {
     public User findUserByEmail(String email);
     public User findUserByUsername(String username);
     public void deleteById(Long id);
-    public User addNewUser(User user, MultipartFile img) throws UsernameExistsException, EmailExistsException;
-    public User updateUser(String username,User user, MultipartFile img);
+    public User addNewUser(User user, MultipartFile img) throws UsernameExistsException, EmailExistsException, IOException;
+    public User updateUser(String username,User user, MultipartFile img) throws UsernameExistsException, EmailExistsException, IOException;
     public void resetPassword(String email);
 
     public ResponseEntity<User> login(String username, String password);

@@ -13,5 +13,4 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
         new File(FileConsts.USER_FOLDER).mkdirs();
     }
-
 }
