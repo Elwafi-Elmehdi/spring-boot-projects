@@ -13,6 +13,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private String title;
     private String summary;
     private String content;
@@ -67,7 +68,16 @@ public class Post {
         this.updatedAt = updatedAt;
     }
 
-    public Post(String title, String summary, String content, Date createdAt, Date updatedAt) {
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public Post(String reference, String title, String summary, String content, Date createdAt, Date updatedAt) {
+        this.reference = reference;
         this.title = title;
         this.summary = summary;
         this.content = content;
