@@ -26,4 +26,5 @@ public class CategoryProvided {
     public List<Category> findAll() {
         return categoryService.findAll();
     }
+    @DeleteMapping("/delete/{title}")
 }
