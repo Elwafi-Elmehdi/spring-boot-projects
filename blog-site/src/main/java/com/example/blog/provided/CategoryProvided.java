@@ -5,6 +5,7 @@ import com.example.blog.consts.ResponseBody;
 import com.example.blog.service.CategoryService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,4 +28,7 @@ public class CategoryProvided {
         return categoryService.findAll();
     }
     @DeleteMapping("/delete/{title}")
+    public int deleteCategory(@PathVariable String title) {
+        return categoryService.deleteCategory(title);
+    }
 }
