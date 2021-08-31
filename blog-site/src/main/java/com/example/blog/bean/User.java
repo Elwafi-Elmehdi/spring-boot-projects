@@ -1,5 +1,8 @@
 package com.example.blog.bean;
 
+import com.example.blog.consts.ResponseBody;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,12 +13,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @JsonView(ResponseBody.UserBase.class)
     private String userId;
+    @JsonView(ResponseBody.UserBase.class)
     private String email;
     private String password;
+    @JsonView(ResponseBody.UserBase.class)
     private String phone;
+    @JsonView(ResponseBody.UserBase.class)
     private String registeredAt;
+    @JsonView(ResponseBody.UserBase.class)
     private String lastLogin;
+    @JsonView(ResponseBody.UserBase.class)
     private String bio;
 
     public User() {
