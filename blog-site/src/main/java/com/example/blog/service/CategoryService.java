@@ -15,7 +15,11 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
     public int addCategory(Category category){
-        return 0;
+        if(categoryRepository.findByTitleAndContent(category.getTitle(),category.getContent()) != null){
+            return -1;
+        }
+        categoryRepository.save(category);
+        return 1;
     }
 
     public List<Category> findAll() {
