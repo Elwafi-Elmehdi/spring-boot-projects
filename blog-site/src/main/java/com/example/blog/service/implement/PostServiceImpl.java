@@ -32,13 +32,12 @@ public class PostServiceImpl implements PostService {
         else if(post.getTitle() == null || post.getSummary()==null){
             return -1;
         }
-        else {
+
             post.setReference(genReference());
             post.setCreatedAt(new Date());
             post.setUpdatedAt(null);
             postRepository.save(post);
             return 1;
-        }
     }
     @Override
     public List<Post> findAll() {
