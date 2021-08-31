@@ -13,6 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String username;
     @JsonView(ResponseBody.UserBase.class)
     private String userId;
     @JsonView(ResponseBody.UserBase.class)
@@ -30,7 +31,8 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String email, String password, String phone, String lastLogin, String bio) {
+    public User(String username, String userId, String email, String password, String phone, String lastLogin, String bio) {
+        this.username = username;
         this.userId = userId;
         this.email = email;
         this.password = password;
@@ -39,12 +41,21 @@ public class User {
         this.bio = bio;
     }
 
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getUserId() {
