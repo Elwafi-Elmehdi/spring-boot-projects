@@ -1,9 +1,6 @@
 package com.example.blog.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,7 +9,8 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private String description;
+    private String summary;
+    private String content;
     private Date createdAt;
-
+    private Date updatedAt;
 }
