@@ -67,6 +67,14 @@ public class Post {
         this.updatedAt = updatedAt;
     }
 
+    public Post(String title, String summary, String content, Date createdAt, Date updatedAt) {
+        this.title = title;
+        this.summary = summary;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
