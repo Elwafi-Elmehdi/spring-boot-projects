@@ -4,10 +4,7 @@ import com.example.blog.bean.Post;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +23,13 @@ public class PostProvided {
     @GetMapping("/{ref}")
     public Post findByRef(@PathVariable String ref) {
         return postService.findByRef(ref);
+    }
+    @PostMapping("/create")
+    public int addPost(@RequestBody Post post) {
+        return postService.addPost(post);
+    }
+    @DeleteMapping("/delete/{ref}")
+    public int deleteByRef(@PathVariable  String ref) {
+        return postService.deleteByRef(ref);
     }
 }

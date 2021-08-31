@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -23,13 +24,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public int addPost(Post post) {
-        if(post.getReference()!= null){
+        if(post.getReference()!= null ){
             Post post1 = postRepository.findByReference(post.getReference());
             if(post1 != null){
                 return 0;
         }
         }
-        else if(post.getTitle() == null || post.getSummary()==null){
+        else if(post.getTitle() == null || post.getSummary()==null || post.getId() != null){
             return -1;
         }
 
@@ -48,9 +49,19 @@ public class PostServiceImpl implements PostService {
     public Post findByRef(String ref) {
         return postRepository.findByReference(ref);
     }
+    @Transactional
+    @Override
+    public int deleteByRef(String ref) {
+        if(postRepository.findByReference(ref) == null){
+            return -1;
+        }
+        Post post = postRepository.findByReference(ref);
+        postRepository.deleteById(post.getId());
+        return 1;
+    }
 
     private String genReference() {
-        return RandomStringUtils.random(8);
+        return RandomStringUtils.randomAlphanumeric(8);
     }
 
 }
