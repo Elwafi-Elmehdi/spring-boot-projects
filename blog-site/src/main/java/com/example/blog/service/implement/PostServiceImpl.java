@@ -1,6 +1,7 @@
 package com.example.blog.service.implement;
 
 import com.example.blog.bean.Post;
+import com.example.blog.repository.CategoryRepository;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -17,9 +18,12 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
+
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, CategoryRepository categoryRepository) {
         this.postRepository = postRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class PostServiceImpl implements PostService {
         else if(post.getTitle() == null || post.getSummary()==null || post.getId() != null){
             return -1;
         }
-
+            post.setCategory(categoryRepository.findByTitle(post.getCategory().getTitle()));
             post.setReference(genReference());
             post.setCreatedAt(new Date());
             post.setUpdatedAt(null);
@@ -49,6 +53,7 @@ public class PostServiceImpl implements PostService {
     public Post findByRef(String ref) {
         return postRepository.findByReference(ref);
     }
+
     @Transactional
     @Override
     public int deleteByRef(String ref) {
