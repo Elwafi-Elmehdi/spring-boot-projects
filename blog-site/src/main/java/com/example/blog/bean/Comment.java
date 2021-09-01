@@ -9,6 +9,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String reference;
     private Date createdAt;
     private String content;
     @ManyToOne()
