@@ -20,7 +20,7 @@ public class Post {
     private String content;
     private Date createdAt;
     private Date updatedAt;
-    @ManyToOne
+    @OneToOne
     private Category category;
 
     public Category getCategory() {
