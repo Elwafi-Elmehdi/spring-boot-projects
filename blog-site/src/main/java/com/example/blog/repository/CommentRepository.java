@@ -1,4 +1,11 @@
 package com.example.blog.repository;
 
-public interface CommentRepository {
+import com.example.blog.bean.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CommentRepository extends JpaRepository<Comment,Long> {
+    public Comment findByReference(String ref);
+
 }
