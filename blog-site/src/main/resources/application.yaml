@@ -9,3 +9,6 @@ spring:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
+
+jwt:
+  secret: '=rN2nVkRG{<@PN=RcgFJrK?$'
