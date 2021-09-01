@@ -3,6 +3,7 @@ package com.example.blog.bean;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Post {
@@ -22,6 +23,16 @@ public class Post {
     private Date updatedAt;
     @OneToOne
     private Category category;
+    @ManyToMany
+    private Set<Tag> tags;
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
 
     public Category getCategory() {
         return category;

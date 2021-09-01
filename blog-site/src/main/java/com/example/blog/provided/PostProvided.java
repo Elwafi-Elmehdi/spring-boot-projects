@@ -1,8 +1,10 @@
 package com.example.blog.provided;
 
 import com.example.blog.bean.Post;
+import com.example.blog.consts.ResponseBody;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
