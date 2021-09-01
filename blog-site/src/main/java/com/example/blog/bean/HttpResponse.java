@@ -2,10 +2,11 @@ package com.example.blog.bean;
 
 import com.example.blog.consts.Security;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
-
 public class HttpResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "MM-dd-yyyy hh:mm:ss",timezone = Security.timeZone)
     private Date timeSamp;
