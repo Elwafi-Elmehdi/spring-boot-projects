@@ -2,6 +2,7 @@ package com.example.blog.bean;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,6 +26,16 @@ public class Post {
     private Category category;
     @ManyToMany
     private Set<Tag> tags;
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Set<Tag> getTags() {
         return tags;
