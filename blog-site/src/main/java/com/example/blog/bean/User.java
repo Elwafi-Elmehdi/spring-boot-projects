@@ -2,21 +2,23 @@ package com.example.blog.bean;
 
 import com.example.blog.consts.ResponseBody;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NonNull
+    @Column(unique = true)
     private String username;
     @JsonView(ResponseBody.UserBase.class)
     private String userId;
+    @NonNull
     @JsonView(ResponseBody.UserBase.class)
+    @Column(unique = true)
     private String email;
     private String password;
     @JsonView(ResponseBody.UserBase.class)
