@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class User {
@@ -24,16 +25,16 @@ public class User {
     @JsonView(ResponseBody.UserBase.class)
     private String phone;
     @JsonView(ResponseBody.UserBase.class)
-    private String registeredAt;
+    private Date registeredAt;
     @JsonView(ResponseBody.UserBase.class)
-    private String lastLogin;
+    private Date lastLogin;
     @JsonView(ResponseBody.UserBase.class)
     private String bio;
 
     public User() {
     }
 
-    public User(String username, String userId, String email, String password, String phone, String lastLogin, String bio) {
+    public User(String username, String userId, String email, String password, String phone, Date lastLogin, String bio) {
         this.username = username;
         this.userId = userId;
         this.email = email;
@@ -92,19 +93,19 @@ public class User {
         this.phone = phone;
     }
 
-    public String getRegisteredAt() {
+    public Date getRegisteredAt() {
         return registeredAt;
     }
 
-    public void setRegisteredAt(String registeredAt) {
+    public void setRegisteredAt(Date registeredAt) {
         this.registeredAt = registeredAt;
     }
 
-    public String getLastLogin() {
+    public Date getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(String lastLogin) {
+    public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
 
