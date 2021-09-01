@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
         User userFound = userRepository.findByUsername(user.getUsername());
         if(user.getUsername() != null && userFound == null){
             User user1 = new User();
+            user1.setUsername(user.getUsername());
             user1.setBio(user.getBio());
             user1.setEmail(user.getEmail());
             user1.setPassword(user.getPassword());
@@ -38,5 +39,10 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user1);
         }
         return null;
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

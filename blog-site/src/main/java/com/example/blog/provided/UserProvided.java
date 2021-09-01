@@ -19,6 +19,12 @@ public class UserProvided {
     public List<User> findAll() {
         return userService.findAll();
     }
+
+    @GetMapping("/{username}")
+    public User findUserByUsername(@PathVariable String username) {
+        return userService.findUserByUsername(username);
+    }
+
     @PostMapping("/create")
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
