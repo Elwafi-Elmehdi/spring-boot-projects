@@ -1,5 +1,7 @@
 package com.example.blog.bean;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.xml.crypto.Data;
 import java.util.Date;
@@ -14,6 +16,7 @@ public class Comment {
     private String email;
     private String content;
     private Date createdAt;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne()
     private Post post;
 
