@@ -26,12 +26,12 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         if(Request.getMethod().equalsIgnoreCase(Security.OPTION_HTTP_METHOD)){
             Response.setStatus(Security.OK.value());
         }else {
-            String autorizationHeader =  Request.getHeader(HttpHeaders.AUTHORIZATION);
-            if(autorizationHeader == null || !autorizationHeader.startsWith(Security.TOKEN_PREFIX)){
+            String authorizationHeader =  Request.getHeader(HttpHeaders.AUTHORIZATION);
+            if(authorizationHeader == null || !authorizationHeader.startsWith(Security.TOKEN_PREFIX)){
                 filterChain.doFilter(Request,Response);
                 return;
             }
-            String token = autorizationHeader.substring(Security.TOKEN_PREFIX.length());
+            String token = authorizationHeader.substring(Security.TOKEN_PREFIX.length());
             String username = jwtTokenProvider.getSubject(token);
 
             if(jwtTokenProvider.isTokenValid(username,token) && SecurityContextHolder.getContext().getAuthentication() == null){
