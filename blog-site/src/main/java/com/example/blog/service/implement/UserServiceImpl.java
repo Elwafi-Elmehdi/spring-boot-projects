@@ -1,10 +1,13 @@
 package com.example.blog.service.implement;
 
+import com.example.blog.bean.Post;
 import com.example.blog.bean.User;
+import com.example.blog.repository.PostRepository;
 import com.example.blog.repository.UserRepository;
 import com.example.blog.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,12 +20,16 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
+    private PostRepository postRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+
+
 
     @Override
     public List<User> findAll() {
@@ -57,6 +64,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User login(User user) {
         return null;
+    }
+
+    @Override
+    public List<Post> findPosts() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(username == null) {
+            return null;
+        }
+        List<Post> posts = postRepository.findByUserUsername(username);
+        return posts;
     }
 
     @Override

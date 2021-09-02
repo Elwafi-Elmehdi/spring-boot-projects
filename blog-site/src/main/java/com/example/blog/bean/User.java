@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @JsonView(ResponseBody.UserBase.class)
     private String bio;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Post> posts;
 

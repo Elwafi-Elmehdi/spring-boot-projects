@@ -1,5 +1,6 @@
 package com.example.blog.service;
 
+import com.example.blog.bean.Post;
 import com.example.blog.bean.User;
 import java.util.List;
 
@@ -8,4 +9,5 @@ public interface UserService {
     public User addUser(User user);
     public User findUserByUsername(String username);
     public User login(User user);
+    public List<Post> findPosts();
 }
