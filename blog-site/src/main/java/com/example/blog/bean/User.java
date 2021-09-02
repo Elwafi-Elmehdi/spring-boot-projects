@@ -1,6 +1,7 @@
 package com.example.blog.bean;
 
 import com.example.blog.consts.ResponseBody;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.catalina.UserDatabase;
 import org.springframework.lang.NonNull;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -34,6 +36,18 @@ public class User implements UserDetails {
     private Date lastLogin;
     @JsonView(ResponseBody.UserBase.class)
     private String bio;
+
+    @OneToMany
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Post> posts;
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 
     public User() {
     }

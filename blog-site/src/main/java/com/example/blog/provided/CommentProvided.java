@@ -4,8 +4,6 @@ import com.example.blog.bean.Comment;
 import com.example.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
