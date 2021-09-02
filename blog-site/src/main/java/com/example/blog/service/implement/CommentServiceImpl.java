@@ -19,8 +19,9 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     private PostService postService;
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, PostService postService) {
         this.commentRepository = commentRepository;
+        this.postService = postService;
     }
 
     @Override
