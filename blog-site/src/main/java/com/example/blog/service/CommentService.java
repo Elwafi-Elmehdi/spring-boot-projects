@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CommentService {
     public List<Comment> findByPostRef(String ref);
+    public int saveComment(String id , Comment comment);
 }
