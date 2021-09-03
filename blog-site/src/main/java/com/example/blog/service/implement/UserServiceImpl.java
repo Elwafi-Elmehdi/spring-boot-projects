@@ -7,6 +7,8 @@ import com.example.blog.repository.UserRepository;
 import com.example.blog.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,15 +21,14 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private PostRepository postRepository;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.postRepository = postRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    private AuthenticationManager authenticationManager;
 
 
 
@@ -62,9 +63,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User login(User user) {
-        return null;
+    public ResponseEntity<User> login(String email, String password) {
+        authenticate(username,password);
+        User loginUser = findUserByUsername(username);
+        UserPrinciple userPrinciple = new UserPrinciple(loginUser);
+        HttpHeaders tokenHeader = getJwtToken(userPrinciple);
+        return new ResponseEntity<>(loginUser,tokenHeader, HttpStatus.OK);
     }
+
 
     @Override
     public List<Post> findPosts() {
@@ -87,5 +93,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return user;
         }
 
+    }
+    private void authenticate(String username, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,password));
     }
 }

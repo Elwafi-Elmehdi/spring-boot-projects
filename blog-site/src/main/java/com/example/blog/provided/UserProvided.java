@@ -1,5 +1,6 @@
 package com.example.blog.provided;
 
+import com.example.blog.bean.Post;
 import com.example.blog.bean.User;
 import com.example.blog.consts.ResponseBody;
 import com.example.blog.handler.ErrorHandler;
@@ -34,5 +35,9 @@ public class UserProvided extends ErrorHandler {
     @PostMapping("/create")
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
+    }
+    @GetMapping("/posts")
+    public List<Post> findPosts() {
+        return userService.findPosts();
     }
 }

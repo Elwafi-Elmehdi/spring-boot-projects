@@ -28,7 +28,7 @@ public class ErrorHandler {
         return HttpResponse.createResponse(HttpStatus.FORBIDDEN,Error.NO_PERMISSIONS);
     }
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<HttpResponse> methodNotSuppportedException(HttpRequestMethodNotSupportedException exception){
+    public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception){
         String[] supportedMethods = exception.getSupportedMethods();
         HttpMethod supportedMethod = HttpMethod.resolve(supportedMethods[0]);
         return HttpResponse.createResponse(HttpStatus.METHOD_NOT_ALLOWED,String.format(Error.METHOD_IS_NOT_ALLOWED,supportedMethod));
