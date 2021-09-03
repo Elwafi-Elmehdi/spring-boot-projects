@@ -2,6 +2,7 @@ package com.example.blog.provided;
 
 import com.example.blog.bean.Post;
 import com.example.blog.consts.ResponseBody;
+import com.example.blog.handler.ErrorHandler;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
-public class PostProvided {
+public class PostProvided extends ErrorHandler {
     private PostService postService;
     @Autowired
     public PostProvided(PostService postService) {

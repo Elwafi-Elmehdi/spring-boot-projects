@@ -2,6 +2,7 @@ package com.example.blog.provided;
 
 import com.example.blog.bean.Category;
 import com.example.blog.consts.ResponseBody;
+import com.example.blog.handler.ErrorHandler;
 import com.example.blog.service.CategoryService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
-public class CategoryProvided {
+public class CategoryProvided extends ErrorHandler {
     private CategoryService categoryService;
     @Autowired
     public CategoryProvided(CategoryService categoryService) {

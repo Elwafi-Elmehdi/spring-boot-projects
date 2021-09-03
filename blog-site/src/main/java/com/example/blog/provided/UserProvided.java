@@ -2,6 +2,7 @@ package com.example.blog.provided;
 
 import com.example.blog.bean.User;
 import com.example.blog.consts.ResponseBody;
+import com.example.blog.handler.ErrorHandler;
 import com.example.blog.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserProvided {
+public class UserProvided extends ErrorHandler {
     private UserService userService;
     @Autowired
     public UserProvided(UserService userService) {

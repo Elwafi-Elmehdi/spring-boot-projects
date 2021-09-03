@@ -1,6 +1,7 @@
 package com.example.blog.provided;
 
 import com.example.blog.bean.Comment;
+import com.example.blog.handler.ErrorHandler;
 import com.example.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/comments")
-public class CommentProvided {
+public class CommentProvided extends ErrorHandler {
     private CommentService commentService;
 
     @Autowired
