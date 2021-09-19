@@ -7,8 +7,10 @@ import com.example.blog.repository.UserRepository;
 import com.example.blog.service.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -62,14 +64,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    @Override
-    public ResponseEntity<User> login(String email, String password) {
-        authenticate(username,password);
-        User loginUser = findUserByUsername(username);
-        UserPrinciple userPrinciple = new UserPrinciple(loginUser);
-        HttpHeaders tokenHeader = getJwtToken(userPrinciple);
-        return new ResponseEntity<>(loginUser,tokenHeader, HttpStatus.OK);
-    }
+//    @Override
+//    public ResponseEntity<User> login(String email, String password) {
+//        authenticate(username,password);
+//        User loginUser = findUserByUsername(username);
+//        UserPrinciple userPrinciple = new UserPrinciple(loginUser);
+//        HttpHeaders tokenHeader = getJwtToken(userPrinciple);
+//        return new ResponseEntity<>(loginUser,tokenHeader, HttpStatus.OK);
+//    }
 
 
     @Override
