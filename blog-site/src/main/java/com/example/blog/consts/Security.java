@@ -9,7 +9,7 @@ public class Security {
     public static final String JWT_TOKEN_HEADER = "Jwt-Token";
     public static final String AUTHORITIES = "authorities";
     public static final String OPTION_HTTP_METHOD = "OPTION";
-    public static final String[] PUBLIC_URLS = {"/users/**","/categories/**","/comments/**"};
+    public static final String[] PUBLIC_URLS = {"/users/login","/users/create","/users/all","/categories/**","/comments/**"};
     public static final String COMPANY_LLC = "BLog Mehdi";
     public static final String COMPANY_LLC_ADMINISTRATON = "BLog Mehdi administration";
     public static final String timeZone = "Morocco/Casablanca";

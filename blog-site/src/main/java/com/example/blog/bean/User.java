@@ -6,12 +6,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.catalina.UserDatabase;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class User implements UserDetails {
@@ -36,6 +39,8 @@ public class User implements UserDetails {
     private Date lastLogin;
     @JsonView(ResponseBody.UserBase.class)
     private String bio;
+    private String role;
+    private String[] authorities;
 
     @OneToMany(mappedBy = "user")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -62,6 +67,17 @@ public class User implements UserDetails {
         this.bio = bio;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setAuthorities(String[] authorities) {
+        this.authorities = authorities;
+    }
 
     public Long getId() {
         return id;
@@ -117,7 +133,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Arrays.stream(this.authorities)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     public String getPassword() {

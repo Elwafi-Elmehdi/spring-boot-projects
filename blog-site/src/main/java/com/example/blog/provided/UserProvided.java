@@ -37,12 +37,13 @@ public class UserProvided extends ErrorHandler {
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
     }
+
     @GetMapping("/posts")
     public List<Post> findPosts() {
         return userService.findPosts();
     }
 
-    @PostMapping("/users/login")
+    @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody  User user) {
         return userService.login(user.getEmail(), user.getPassword());
     }
