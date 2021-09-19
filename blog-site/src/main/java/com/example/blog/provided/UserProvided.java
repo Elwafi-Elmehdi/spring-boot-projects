@@ -7,6 +7,7 @@ import com.example.blog.handler.ErrorHandler;
 import com.example.blog.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,5 +40,10 @@ public class UserProvided extends ErrorHandler {
     @GetMapping("/posts")
     public List<Post> findPosts() {
         return userService.findPosts();
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<User> login(@RequestBody  User user) {
+        return userService.login(user.getEmail(), user.getPassword());
     }
 }

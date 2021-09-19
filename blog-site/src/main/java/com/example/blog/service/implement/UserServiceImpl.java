@@ -2,12 +2,15 @@ package com.example.blog.service.implement;
 
 import com.example.blog.bean.Post;
 import com.example.blog.bean.User;
+import com.example.blog.consts.Security;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.repository.UserRepository;
 import com.example.blog.service.UserService;
+import com.example.blog.service.security.JWTTokenProvider;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +34,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JWTTokenProvider jwtTokenProvider;
 
 
 
@@ -64,14 +70,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-//    @Override
-//    public ResponseEntity<User> login(String email, String password) {
-//        authenticate(username,password);
-//        User loginUser = findUserByUsername(username);
-//        UserPrinciple userPrinciple = new UserPrinciple(loginUser);
-//        HttpHeaders tokenHeader = getJwtToken(userPrinciple);
-//        return new ResponseEntity<>(loginUser,tokenHeader, HttpStatus.OK);
-//    }
+    @Override
+    public ResponseEntity<User> login(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        authenticate(user.getUsername(),password);
+        String token = jwtTokenProvider.generateJWTToken(user);
+        HttpHeaders tokenHeader = new HttpHeaders();
+        tokenHeader.add(Security.JWT_TOKEN_HEADER,token);
+        return new ResponseEntity<>(user,tokenHeader, HttpStatus.OK);
+    }
 
 
     @Override
