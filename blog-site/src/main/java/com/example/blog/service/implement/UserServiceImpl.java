@@ -1,6 +1,7 @@
 package com.example.blog.service.implement;
 
 import com.example.blog.bean.Post;
+import com.example.blog.bean.Role;
 import com.example.blog.bean.User;
 import com.example.blog.consts.Security;
 import com.example.blog.repository.PostRepository;
@@ -59,6 +60,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user1.setRegisteredAt(new Date());
             user1.setUserId(RandomStringUtils.randomAlphanumeric(12));
             user1.setLastLogin(null);
+            user1.setAuthorities(Role.ROLE_USER.getAuthorities());
+            user1.setRole("USER");
             userRepository.save(user1);
             return user1;
         }
