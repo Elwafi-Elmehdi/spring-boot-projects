@@ -39,7 +39,9 @@ public class User implements UserDetails {
     private Date lastLogin;
     @JsonView(ResponseBody.UserBase.class)
     private String bio;
+    @JsonView(ResponseBody.UserBase.class)
     private String role;
+    @JsonView(ResponseBody.UserBase.class)
     private String[] authorities;
 
     @OneToMany(mappedBy = "user")
@@ -131,9 +133,13 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public String[] get_Authorities(){
+        return authorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(this.authorities)
+        return Arrays.stream(get_Authorities())
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

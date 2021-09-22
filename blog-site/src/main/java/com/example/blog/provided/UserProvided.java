@@ -14,12 +14,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserProvided extends ErrorHandler {
-    private UserService userService;
+public class UserProvided {
     @Autowired
-    public UserProvided(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @JsonView(ResponseBody.UserBase.class)
     @GetMapping("/all")
@@ -43,6 +40,7 @@ public class UserProvided extends ErrorHandler {
         return userService.findPosts();
     }
 
+    @JsonView(ResponseBody.UserBase.class)
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody  User user) {
         return userService.login(user.getEmail(), user.getPassword());
