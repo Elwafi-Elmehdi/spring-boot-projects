@@ -12,22 +12,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ErrorHandler {
 
-//    @ExceptionHandler(DisabledException.class)
-//    public ResponseEntity<HttpResponse> accountDisabledException(){
-//        return HttpResponse.createResponse(HttpStatus.BAD_REQUEST,Error.ACCOUNT_DISABLED);
-//    }
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ResponseEntity<HttpResponse> badCredentialsException(){
-//        return HttpResponse.createResponse(HttpStatus.BAD_REQUEST,Error.INCORRECT_CREDENTIALS);
-//    }
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public  ResponseEntity<HttpResponse> accessDeniedException(){
-//        return HttpResponse.createResponse(HttpStatus.FORBIDDEN,Error.NO_PERMISSIONS);
-//    }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception){
         String[] supportedMethods = exception.getSupportedMethods();
         HttpMethod supportedMethod = HttpMethod.resolve(supportedMethods[0]);
         return HttpResponse.createResponse(HttpStatus.METHOD_NOT_ALLOWED,String.format(Error.METHOD_IS_NOT_ALLOWED,supportedMethod));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public  ResponseEntity<HttpResponse> error(){
+        return HttpResponse.createResponse(HttpStatus.INTERNAL_SERVER_ERROR,"Error!");
     }
 }
