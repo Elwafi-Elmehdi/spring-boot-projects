@@ -28,16 +28,6 @@ public class Post {
     private Set<Tag> tags;
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
-    @ManyToOne
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public List<Comment> getComments() {
         return comments;
